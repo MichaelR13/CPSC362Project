@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import *
 
 class Titan_Locker(tk.Tk):
     def __init__(self):
@@ -22,24 +23,34 @@ class Titan_Locker(tk.Tk):
             font='Arial 36', 
             bg=t_orange, 
             fg=t_blue, 
-            pady=80,
+            pady=10,
             padx=60
             )
         
         # Title pack
         text.pack()
-        # self.iconphoto(False, tk.PhotoImage(file="bg_Titan_Lock.jpg"))
-        
-        #frm_buttons.pack()
-        txt_edit = tk.Text(self)
-        frm_buttons = tk.Frame(self, relief=tk.RAISED, bd=2)
-        btn_open = tk.Button(frm_buttons, text="Open")
-        btn_save = tk.Button(frm_buttons, text="Save As...")
+        # Create a Button
+        btn = Button(self, text = 'SUBMIT',font= 'Arial 12',  width= '10', height= '1', bd = '5',  command = self.destroy) 
+        user = tk.Label(self, text="User: ", bg= t_blue, fg='white')
+        userEntry = Entry(width ='25')
+        pw = tk.Label(self, text="Password: ", bg= t_blue, fg='white')
+        pwEntry = Entry(width ='25')
+        link = tk.Label(self, text="Link: ", bg= t_blue, fg='white')
+        linkEntry = Entry(width ='25')
+        # Set the position of button 
+        user.pack(pady=(30,5), padx = (0,117))
+        userEntry.pack()
+        pw.pack(pady=(30,5), padx = (0,91))
+        pwEntry.pack()
+        link.pack(pady=(30,5), padx=(0,119))
+        linkEntry.pack()
 
-        btn_open.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
-        btn_save.grid(row=1, column=0, sticky="ew", padx=5)
-        #frm_buttons.grid(row=0, column=0, sticky="ns")
-        #txt_edit.grid(row=0, column=1, sticky="nsew")
+        btn.pack(pady=(40,10))
+
+        
+        #pswrd = tk.Label(self, text="Password:", width= '8', height ='1' )
+        
+        
         
 if __name__ == "__main__":
     app = Titan_Locker()
