@@ -4,28 +4,40 @@ from Crypto.Util.Padding import pad
 
 # Current function arguments (change may be needed in the future)
 
-def encrypt(msg):
+def encrypt(*info):
+
     # The key (must be 16 bytes)
     key = b'Sixteen byte key'
+    print(info)
+    encryptInfo(info,key)
+    
 
+def encryptInfo(infoList, key):
     # Set up the AES encryption class
-    encCipher = AES.new(key, AES.MODE_ECB)
+    file1 = open("manager.txt", "a")
 
-    msgBytes = msg.encode('utf-8')
+    for i in infoList:
+        encCipher = AES.new(key, AES.MODE_ECB)
 
-    # Pad and then encrypt
-    paddedMsg = pad(msgBytes, AES.block_size) #.encode('etf-8', AES.block_size)
+        msgBytes = i.encode('utf-8')
 
-    # AES requires plain/cipher text blocks to be 16 bytes
-    cipherText = encCipher.encrypt(paddedMsg)
+        # Pad and then encrypt
+        paddedMsg = pad(msgBytes, AES.block_size) #.encode('etf-8', AES.block_size)
 
+        # AES requires plain/cipher text blocks to be 16 bytes
+        cipherText = encCipher.encrypt(paddedMsg)
 
-    file1 = open("manager.txt", "w")
-    file1.write(str(cipherText) + "\n")
-
-    print("The cipher text that was written to the file was: ", cipherText)
+        
+        file1.write(str(cipherText) + "|")
+        print("The cipher text that was written to the file was: ", cipherText)
+    
+    file1.write('\n')
+    file1.close()
+    
 
 
 if __name__ == '__main__':
-    msg = str(input("Please enter a message to send to encrypt: "))
-    encrypt(msg)
+    username = str(input("Please enter your username: "))
+    password = str(input("Please enter your password: "))
+    website = str(input("Please enter your website: "))
+    encrypt(username, password, website)
