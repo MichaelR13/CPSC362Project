@@ -4,10 +4,6 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename
 
 class Titan_Locker(tk.Tk):
 
-    def userInputTxtFile():
-        var1 = 2 #Function should allow user input to do something
-        
-
     def __init__(self):
         super().__init__()
         
@@ -33,6 +29,7 @@ class Titan_Locker(tk.Tk):
             padx=60
             )
         #padx was 80
+        
         def save_file():
             """Save the current file as a new file."""
             filepath = asksaveasfilename(
@@ -59,25 +56,14 @@ class Titan_Locker(tk.Tk):
         pwEntry = Entry(width ='25')
         link = tk.Label(self, text="Link: ", bg= t_blue, fg='white')
         linkEntry = Entry(width ='25')
-        # Set the position of button 
+        # Set the position of button (PACK)
         user.pack(pady=(30,5), padx = (0,117))
         userEntry.pack()
         pw.pack(pady=(30,5), padx = (0,91))
         pwEntry.pack()
         link.pack(pady=(30,5), padx=(0,119))
         linkEntry.pack()
-
         btn.pack(pady=(40,10))
-        
-        
-        #pswrd = tk.Label(self, text="Password:", width= '8', height ='1' )
-    #create a command for the submit button to take the user entry 
-    def userInput(): # Should take the input from the entry then send it to a file via thesubmitbutto
-        var2 =5
-
-    
-
- 
         
 if __name__ == "__main__":
     app = Titan_Locker()
