@@ -3,7 +3,7 @@ from Crypto.Util.Padding import unpad
 
 def decrypt():
     # open file
-    with open('manager.txt') as f:
+    with open('manager.bin') as f:
         readLine = f.readline().strip('\n')
         splitList = delimiter(readLine)
         returnedList = decode(splitList)
@@ -19,23 +19,23 @@ def delimiter(line):
     splitWords.pop()
     return splitWords
     
+def decode(list):
 
-
-def decode(seperatedList):
-    # The key (must be 16 bytes)
     key = b'Sixteen byte key'
+    finalList = []
 
-    for i in seperatedList:
+    for i in list:
         # Set up the AES encryption class
-        cipher = AES.new(key, AES.MODE_ECB)
-        #THIS DOES NOT WORK :(
-        decryptedMsg = cipher.decrypt(i)
+        decCipher = AES.new(key, AES.MODE_ECB)
 
-        # Pad and then encrypt
-        unpaddedMsg = unpad(decryptedMsg, 16).decode()
+        print(i)
 
-        print(unpaddedMsg)
+        # AES requires plain/cipher text blocks to be 16 bytes
+        plainText = decCipher.decrypt(i)
 
+        finalList.append(plainText)
+
+        
 
 
 if __name__ == '__main__':

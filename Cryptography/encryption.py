@@ -4,17 +4,18 @@ from Crypto.Util.Padding import pad
 
 # Current function arguments (change may be needed in the future)
 
-def encrypt(*info):
+def encrypt(key,*info):
 
     # The key (must be 16 bytes)
-    key = b'Sixteen byte key'
+    if key == "":
+        key = b'Sixteen byte key'
     print(info)
     encryptInfo(info,key)
     
 
 def encryptInfo(infoList, key):
     # Set up the AES encryption class
-    file1 = open("manager.txt", "a")
+    file1 = open("manager.bin", "a")
 
     for i in infoList:
         encCipher = AES.new(key, AES.MODE_ECB)
@@ -40,4 +41,5 @@ if __name__ == '__main__':
     username = str(input("Please enter your username: "))
     password = str(input("Please enter your password: "))
     website = str(input("Please enter your website: "))
-    encrypt(username, password, website)
+    key = ""
+    encrypt(key, username, password, website)
