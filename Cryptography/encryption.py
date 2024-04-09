@@ -1,14 +1,10 @@
 from Cryptodome.Cipher import AES
 from Crypto.Util.Padding import pad
-######### BASIC ENCRYPTION ###########
-
-# Current function arguments (change may be needed in the future)
 
 def encrypt(key,*info):
 
-    # The key (must be 16 bytes)
     if key == "":
-        key = b'Sixteen byte key'
+        key = b'Sixteen byte key' # key must be 16 bytes long
     print(info)
     encryptInfo(info,key)
     
@@ -20,7 +16,7 @@ def encryptInfo(infoList, key):
     for i in infoList:
         encCipher = AES.new(key, AES.MODE_ECB)
 
-        msgBytes = i.encode('utf-8')
+        msgBytes = i.encode('utf-8')    # Convert the message to bytes
 
         # Pad and then encrypt
         paddedMsg = pad(msgBytes, AES.block_size) #.encode('etf-8', AES.block_size)
