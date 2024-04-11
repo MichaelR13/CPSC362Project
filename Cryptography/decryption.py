@@ -1,7 +1,7 @@
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 
-def decrypt():
+def decrypt(key):
     # open file
     file1 = open('manager.bin', 'r')
     Lines = file1.readlines()
@@ -9,7 +9,7 @@ def decrypt():
     for f in Lines:
         read_line = f.strip('\n')
         split_list = delimiter(read_line)
-        result = decode(split_list)
+        result = decode(split_list, key)
 
         if result:
             print("The message in the file was:", result)
@@ -23,8 +23,11 @@ def delimiter(line):
     splitWords.pop()
     return splitWords
     
-def decode(lst):
-    key = b'Sixteen byte key'
+def decode(lst, key):
+
+    if key == "":
+        key = b'Sixteen byte key' # key must be 16 bytes long
+    
     final_list = []
 
     for item in lst:
@@ -48,4 +51,6 @@ def decode(lst):
     return final_list
 
 if __name__ == '__main__':
-    decrypt()
+    key = str(input("Please enter a key (Leave blank for default key): "))
+
+    decrypt(key)

@@ -37,5 +37,5 @@ if __name__ == '__main__':
     username = str(input("Please enter your username: "))
     password = str(input("Please enter your password: "))
     website = str(input("Please enter your website: "))
-    key = ""
+    key = str(input("Please enter a key (Leave blank for default key): "))
     encrypt(key, username, password, website)
