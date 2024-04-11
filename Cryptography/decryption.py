@@ -3,14 +3,19 @@ from Crypto.Util.Padding import unpad
 
 def decrypt():
     # open file
-    with open('manager.bin') as f:
-        read_line = f.readline().strip('\n')
+    file1 = open('manager.bin', 'r')
+    Lines = file1.readlines()
+
+    for f in Lines:
+        read_line = f.strip('\n')
         split_list = delimiter(read_line)
         result = decode(split_list)
+
         if result:
             print("The message in the file was:", result)
         else:
             print("No data found in the file.")
+
 
 #delim into a list and pass the list into decrypt to get csv file
 def delimiter(line):
