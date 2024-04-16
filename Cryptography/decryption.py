@@ -1,16 +1,21 @@
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 
-def decrypt():
+def decrypt(key):
     # open file
-    with open('manager.bin') as f:
-        read_line = f.readline().strip('\n')
+    file1 = open('manager.bin', 'r')
+    Lines = file1.readlines()
+
+    for f in Lines:
+        read_line = f.strip('\n')
         split_list = delimiter(read_line)
-        result = decode(split_list)
+        result = decode(split_list, key)
+
         if result:
             print("The message in the file was:", result)
         else:
             print("No data found in the file.")
+
 
 #delim into a list and pass the list into decrypt to get csv file
 def delimiter(line):
@@ -18,8 +23,12 @@ def delimiter(line):
     splitWords.pop()
     return splitWords
     
-def decode(lst):
-    key = b'Sixteen byte key'
+def decode(lst, key):
+
+    key = key.encode('utf-8')
+    if key == b'':
+        key = b'Sixteen byte key' # key must be 16 bytes long
+    
     final_list = []
 
     for item in lst:
@@ -43,4 +52,6 @@ def decode(lst):
     return final_list
 
 if __name__ == '__main__':
-    decrypt()
+    key = str(input("Please enter a key (Leave blank for default key): "))
+
+    decrypt(key)
