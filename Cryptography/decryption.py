@@ -25,7 +25,8 @@ def delimiter(line):
     
 def decode(lst, key):
 
-    if key == "":
+    key = key.encode('utf-8')
+    if key == b'':
         key = b'Sixteen byte key' # key must be 16 bytes long
     
     final_list = []

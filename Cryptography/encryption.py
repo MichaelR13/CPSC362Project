@@ -2,8 +2,8 @@ from Cryptodome.Cipher import AES
 from Crypto.Util.Padding import pad
 
 def encrypt(key,*info):
-
-    if key == "":
+    key = key.encode('utf-8')
+    if key == b'':
         key = b'Sixteen byte key' # key must be 16 bytes long
     print(info)
     encryptInfo(info,key)
@@ -38,4 +38,5 @@ if __name__ == '__main__':
     password = str(input("Please enter your password: "))
     website = str(input("Please enter your website: "))
     key = str(input("Please enter a key (Leave blank for default key): "))
+    print(len(key))
     encrypt(key, username, password, website)
