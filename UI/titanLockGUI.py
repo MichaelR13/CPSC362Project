@@ -2,29 +2,23 @@ import tkinter as tk
 from tkinter import *
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 
-class Titan_Locker(tk.Tk):
-
-    def userInputTxtFile():
-        var1 = 2 #Function should allow user input to do something
-        
-    def __init__(self):
-        super().__init__()
-        
+def addWindow():
+        #global win
+        win = tk.Tk()
         # GUI Dimensions
-        self.title("Titan Lock 🐘")
-        self.geometry("400x400+500+400")
-        self.minsize(500,420)
-        self.resizable(True, True)
+        win.title("Titan Lock 🐘")
+        win.geometry("400x400+500+400")
+        win.minsize(500,420)
+        win.resizable(True, True)
         
-        # GUI Layout
-        # CSUF colors
+        # GUI Layout CSUF colors
         t_blue = '#00244E'
         t_orange = '#FF7900'
         
         # GUI Label
-        self.configure(bg=t_blue) 
-        text = tk.Label(
-            self, 
+        win.configure(bg=t_blue) 
+        text2 = tk.Label(
+            win, 
             text='Titan Lock 🐘', 
             font='Arial 36', 
             bg=t_orange, 
@@ -49,19 +43,19 @@ class Titan_Locker(tk.Tk):
                 link = linkEntry.get()
                 output_file.write(userText  +' '+ userPW  +' '+ link)
                 
-            self.title(f"Simple Text Editor - {filepath}")
+            win.title(f"Simple Text Editor - {filepath}")
         
         # Title pack
-        text.pack()
-
+        text2.pack()
         # Create a Button
-        btn = Button(self, text = 'SUBMIT',font= 'Arial 12',  width= '10', height= '1', bd = '5',  command = save_file) 
-        user = tk.Label(self, text="User: ", bg= t_blue, fg='white')
-        userEntry = Entry(width ='25')
-        pw = tk.Label(self, text="Password: ", bg= t_blue, fg='white')
-        pwEntry = Entry(width ='25')
-        link = tk.Label(self, text="Link: ", bg= t_blue, fg='white')
-        linkEntry = Entry(width ='25')
+        btn = Button(win, text = 'SUBMIT',font= 'Arial 12',  width= '10', height= '1', bd = '5',  command = save_file) 
+        user = tk.Label(win, text="User: ", bg= t_blue, fg='white')
+        userEntry = Entry(win, width ='25')
+        pw = tk.Label(win, text="Password: ", bg= t_blue, fg='white')
+        pwEntry = Entry(win, width ='25')
+        link = tk.Label(win, text="Link: ", bg= t_blue, fg='white')
+        linkEntry = Entry(win, width ='25')
+        userDataBtn = Button(win, text = 'Saved Passwords')
         
         # Set the position of button 
         user.pack(pady=(30,5), padx = (0,160))
@@ -69,19 +63,33 @@ class Titan_Locker(tk.Tk):
         
         pw.pack(pady=(30,5), padx = (0,133))
         # Show asterisks (*) for password entry
-        pwEntry = Entry(width ='25', show='*') 
+        pwEntry = Entry(win, width ='25', show='*') 
         pwEntry.pack()
         
         link.pack(pady=(30,5), padx=(0,165))
         linkEntry.pack()
 
         btn.pack(pady=(40,10))
-        
-    #create a command for the submit button to take the user entry 
-    def userInput(): # Should take the input from the entry then send it to a file via thesubmitbutto
-        var2 = 5
+        userDataBtn.pack(pady = (20, 5))
+
+    
+app = tk.Tk()
+app.title("Main Screen")
+app.geometry('400x400+500+400')
+app.minsize(500,420)
+app.resizable(True, True)
+t_blue = '#00244E'
+t_orange = '#FF7900'
+app.configure(bg = t_blue)
+text = tk.Label(app, text='Titan Lock 🐘', font='Arial 36', bg=t_orange, fg=t_blue, pady=10, padx=60)
+text.pack()
+
+enterLabel = Label(app, text = 'Enter Master Password:', bg= t_blue, fg='white')
+enterEntry = Entry(app, width ='25')
+enterLabel.pack(padx = (0, 30))
+enterEntry.pack()
+addBtn = Button(app, text = 'ADD',font= 'Arial 12',  width= '10', height= '1', bd = '5', command = addWindow)
+addBtn.pack(pady=(40,10))
 
 
-if __name__ == "__main__":
-    app = Titan_Locker()
-    app.mainloop()
+app.mainloop()
