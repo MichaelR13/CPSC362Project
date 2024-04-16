@@ -2,8 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 
   
- 
-
+#GLOBAL CSUF COLORS
 t_blue = '#00244E'
 t_orange = '#FF7900'
   
@@ -87,7 +86,7 @@ class StartPage(tk.Frame):
         button2.grid(row = 2, column = 1, padx = 10, pady = 10)
   
           
-# second window frame page1 
+# second window frame ADD BUTTON AND ENTRY PAGE
 class AddPage(tk.Frame):
      
     def __init__(self, parent, controller):
@@ -112,15 +111,16 @@ class AddPage(tk.Frame):
         linkEntry = tk.Entry(self, width ='25')
         
         
-        # Set the position of button 
+        # Set the position of USER,PW, LINK AND THEIR RESPECTIVE ENTRIES
         user.grid(row = 2, column = 4)
         userEntry.grid(row = 3, column = 4)
+        pw.grid(row = 4, column = 4)
+        pwEntry.grid(row = 5, column = 4)
+        link.grid(row = 6, column = 4)
+        linkEntry.grid(row = 7, column = 7)
         
         
-
-  
-  
-# third window frame page2
+# third window frame SAVED DATA PAGE
 class SavedPage(tk.Frame): 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
@@ -130,12 +130,12 @@ class SavedPage(tk.Frame):
         label.grid(row = 0, column = 4, padx = 10, pady = 10)
         # button to show frame 2 with text
         # layout2
-        button1 = ttk.Button(self, text ="Back",
+        backButton = ttk.Button(self, text ="Back",
                             command = lambda : controller.show_frame(StartPage))
      
         # putting the button in its place 
         # by using grid
-        button1.grid(row = 1, column = 1, padx = 10, pady = 10)
+        backButton.grid(row = 1, column = 1, padx = 10, pady = 10)
   
   
 # Driver Code
