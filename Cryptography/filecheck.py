@@ -17,4 +17,6 @@ def fileExist(key):
 
 
 if __name__ == '__main__':
-    fileExist()
+    key = str(input("Please enter a key (Leave blank for default key): "))
+
+    fileExist(key)
