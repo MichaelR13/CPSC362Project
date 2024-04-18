@@ -22,21 +22,30 @@ def encryptInfo(infoList, key):
     
     file1.write('\n')
     file1.close()
+
+    # Return status
     return errorCheck[0]
     
 def makeStr(infoList, key):
     tempStr = ""
     try:
         for i in infoList:
+            # Set up the AES decryption cipher
             encCipher = AES.new(key, AES.MODE_ECB)
-            msgBytes = i.encode('utf-8')    # Convert the message to bytes
+
+            # Convert the message to byte array
+            msgBytes = i.encode('utf-8')
+
             # Pad and then encrypt
-            paddedMsg = pad(msgBytes, AES.block_size) #.encode('etf-8', AES.block_size)
+            paddedMsg = pad(msgBytes, AES.block_size)
+
             # AES requires plain/cipher text blocks to be 16 bytes
             cipherText = encCipher.encrypt(paddedMsg)
 
+            # Add 
             print("The cipher text that was written to the file was: ", cipherText)
             tempStr = tempStr + '|' + str(cipherText)
+
     except Exception as e:
         return ["Data failed to write to file",tempStr]
 
