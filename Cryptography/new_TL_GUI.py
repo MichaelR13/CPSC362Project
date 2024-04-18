@@ -6,7 +6,7 @@ from encryption import encrypt
 #GLOBAL CSUF COLORS
 t_blue = '#00244E'
 t_orange = '#FF7900'
-  
+masterKey = ""
 class tkinterApp(tk.Tk):
      
     # __init__ function for class tkinterApp 
@@ -18,6 +18,7 @@ class tkinterApp(tk.Tk):
         self.geometry('400x400+500+500')
         self.minsize(500,420)
         self.resizable(True, True)
+        
         
        
         # creating a container
@@ -76,7 +77,7 @@ class StartPage(tk.Frame):
         
         # putting the button in its place by
         # using grid
-        addButton.grid(row = 1, column = 1, padx = 10, pady = 10)
+        addButton.grid(row = 1, column = 4, padx = 10, pady = 10)
   
         ## button to show frame 2 with text layout2
         savedButton = ttk.Button(self, text ="Saved",
@@ -84,18 +85,25 @@ class StartPage(tk.Frame):
      
         # putting the button in its place by
         # using grid
-        savedButton.grid(row = 2, column = 1, padx = 10, pady = 10)
+        savedButton.grid(row = 2, column = 4, padx = 10, pady = 10)
+        key = tk.Label(self, text="Enter Key: ", bg= t_blue, fg='white')
+        key.grid(row = 3, column = 4)
+        keyEntry = tk.Entry(self, width ='25')
+        keyEntry.grid(row = 4, column = 4)
+        global masterKey 
+        masterKey = keyEntry.get()
+
+
+        
   
           
 # second window frame ADD BUTTON AND ENTRY PAGE
 class AddPage(tk.Frame):
     def save_file(userText, userPW, link):
-        
-        #output_file.write(userText  +' '+ userPW  +' '+ link)
-        key = ""
-        encrypt(key, userText, userPW, link)
+                
+        encrypt(masterKey, userText, userPW, link)
             
-        
+    
     def __init__(self, parent, controller):
          
         tk.Frame.__init__(self, parent)
@@ -127,16 +135,9 @@ class AddPage(tk.Frame):
         linkEntry.grid(row = 7, column = 4)
         
         submitButton.grid(row= 8, column = 4, pady = 30)
-        '''def save(self ):
-            messagebox.showinfo(title = 'Password saved!', message = 'Your password has been saved!')
-            button = tkinter.button(window, command = save, text = 'Submit')
-            window = Tk()
-            button.pack()
-            window.mainloop()
-            frame.pack(self)'''
+        
         
                     
-                
         
 # third window frame SAVED DATA PAGE
 class SavedPage(tk.Frame): 
