@@ -33,7 +33,6 @@ def decode(lst, key):
 
     for item in lst:
         try:
-
             # Convert the string to byte array
             encrypted_data = eval(item)
 

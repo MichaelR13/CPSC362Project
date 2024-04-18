@@ -6,7 +6,7 @@ from encryption import encrypt
 #GLOBAL CSUF COLORS
 t_blue = '#00244E'
 t_orange = '#FF7900'
-masterKey = ""
+masterKey = ''
 class tkinterApp(tk.Tk):
      
     # __init__ function for class tkinterApp 
@@ -57,6 +57,24 @@ class tkinterApp(tk.Tk):
 # first window frame startpage
   
 class StartPage(tk.Frame):
+    def saveSaveKey(keyEntry, controller):
+        global masterKey
+        masterKey = keyEntry
+
+        # MasterKey Check
+        #print (masterKey)
+
+        controller.show_frame(SavedPage)
+
+    def saveAddKey(keyEntry, controller):
+        global masterKey
+        masterKey = keyEntry
+
+        # MasterKey Check
+        #print (masterKey)
+        
+        controller.show_frame(AddPage)
+
     def __init__(self, parent, controller): 
         tk.Frame.__init__(self, parent)
         
@@ -72,16 +90,13 @@ class StartPage(tk.Frame):
         #style.theme_use('alt')
         style.configure('TButton', foreground = 'black', width = 15)
         style.map('TButton', background=[('active', 'white')])
-        addButton = ttk.Button(self, text ="ADD",
-                            command = lambda : controller.show_frame(AddPage))
+        addButton = ttk.Button(self, text ="ADD", command = lambda : StartPage.saveAddKey(keyEntry.get(), controller))
         
         # putting the button in its place by
         # using grid
         addButton.grid(row = 1, column = 4, padx = 10, pady = 10)
-  
         ## button to show frame 2 with text layout2
-        savedButton = ttk.Button(self, text ="Saved",
-                            command = lambda : controller.show_frame(SavedPage))
+        savedButton = ttk.Button(self, text ="Saved", command = lambda : StartPage.saveSaveKey(keyEntry.get(), controller))
      
         # putting the button in its place by
         # using grid
@@ -90,9 +105,6 @@ class StartPage(tk.Frame):
         key.grid(row = 3, column = 4)
         keyEntry = tk.Entry(self, width ='25')
         keyEntry.grid(row = 4, column = 4)
-        global masterKey 
-        masterKey = keyEntry.get()
-
 
         
   
@@ -100,12 +112,11 @@ class StartPage(tk.Frame):
 # second window frame ADD BUTTON AND ENTRY PAGE
 class AddPage(tk.Frame):
     def save_file(userText, userPW, link):
-                
         encrypt(masterKey, userText, userPW, link)
             
     
     def __init__(self, parent, controller):
-         
+
         tk.Frame.__init__(self, parent)
         self.configure(bg = t_blue)
         label = ttk.Label(self, text='Titan Lock 🐘', font='Arial 36', foreground = t_orange, background = t_blue)
