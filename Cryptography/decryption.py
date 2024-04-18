@@ -17,10 +17,10 @@ def decrypt(key):
             print("No data found in the file.")
 
 
-#delim into a list and pass the list into decrypt to get csv file
 def delimiter(line):
+    # Split the line into a list
     splitWords = line.split('|')
-    splitWords.pop()
+    splitWords.pop(0)
     return splitWords
     
 def decode(lst, key):
@@ -33,7 +33,8 @@ def decode(lst, key):
 
     for item in lst:
         try:
-            # Convert the string representation of bytes back to bytes
+
+            # Convert the string to byte array
             encrypted_data = eval(item)
 
             # Set up the AES decryption cipher
@@ -45,7 +46,9 @@ def decode(lst, key):
             # Remove padding from the decrypted data
             unpadded_data = unpad(decrypted_data, AES.block_size)
 
+            # Append data to the end of the list
             final_list.append(unpadded_data.decode('utf-8'))    # Convert the bytes back to a string
+
         except Exception as e:
             print("Error decrypting data:", e)
 
