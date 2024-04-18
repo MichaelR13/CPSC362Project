@@ -89,7 +89,13 @@ class StartPage(tk.Frame):
           
 # second window frame ADD BUTTON AND ENTRY PAGE
 class AddPage(tk.Frame):
-     
+    def save_file(userText, userPW, link):
+        
+        #output_file.write(userText  +' '+ userPW  +' '+ link)
+        key = ""
+        encrypt(key, userText, userPW, link)
+            
+        
     def __init__(self, parent, controller):
          
         tk.Frame.__init__(self, parent)
@@ -104,6 +110,7 @@ class AddPage(tk.Frame):
 
         #ALL ENTRIES AND SUBMIT BUTTON FOR ADD PAGE
         
+        # Set the position of USER,PW, LINK AND THEIR RESPECTIVE ENTRIES
         user = tk.Label(self, text="User: ", bg= t_blue, fg='white')
         userEntry = tk.Entry(self, width ='25')
         pw = tk.Label(self, text="Password: ", bg= t_blue, fg='white')
@@ -111,8 +118,7 @@ class AddPage(tk.Frame):
         link = tk.Label(self, text="Link: ", bg= t_blue, fg='white')
         linkEntry = tk.Entry(self, width ='25')
         #TODO: add command to submit button
-        submitButton = ttk.Button(self, text = 'SUBMIT')
-        # Set the position of USER,PW, LINK AND THEIR RESPECTIVE ENTRIES
+        submitButton = ttk.Button(self, text = 'SUBMIT', command = lambda: AddPage.save_file(userEntry.get(), pwEntry.get(),linkEntry.get()))
         user.grid(row = 2, column = 4)
         userEntry.grid(row = 3, column = 4)
         pw.grid(row = 4, column = 4)
