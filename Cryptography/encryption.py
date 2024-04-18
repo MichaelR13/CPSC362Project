@@ -17,31 +17,28 @@ def encryptInfo(infoList, key):
 
     errorCheck = makeStr(infoList, key)
 
-    if errorCheck.index(0) == "Data successfully written to file":
-        file1.write(str(errorCheck.index(1)))
+    if errorCheck[0] == "Data successfully written to file":
+        file1.write(errorCheck[1])
     
     file1.write('\n')
     file1.close()
-    return errorCheck.index(0)
+    return errorCheck[0]
     
 def makeStr(infoList, key):
     tempStr = ""
     try:
-            for i in infoList:
-                encCipher = AES.new(key, AES.MODE_ECB)
+        for i in infoList:
+            encCipher = AES.new(key, AES.MODE_ECB)
+            msgBytes = i.encode('utf-8')    # Convert the message to bytes
+            # Pad and then encrypt
+            paddedMsg = pad(msgBytes, AES.block_size) #.encode('etf-8', AES.block_size)
+            # AES requires plain/cipher text blocks to be 16 bytes
+            cipherText = encCipher.encrypt(paddedMsg)
 
-                msgBytes = i.encode('utf-8')    # Convert the message to bytes
-
-                # Pad and then encrypt
-                paddedMsg = pad(msgBytes, AES.block_size) #.encode('etf-8', AES.block_size)
-
-                # AES requires plain/cipher text blocks to be 16 bytes
-                cipherText = encCipher.encrypt(paddedMsg)
-                
-                print("The cipher text that was written to the file was: ", cipherText)
-                tempStr = tempStr + '|' + cipherText
+            print("The cipher text that was written to the file was: ", cipherText)
+            tempStr = tempStr + '|' + str(cipherText)
     except Exception as e:
-        return ["Data failed to write to file"]
+        return ["Data failed to write to file",tempStr]
 
     return ["Data successfully written to file", tempStr]
 
