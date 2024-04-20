@@ -5,16 +5,21 @@ def decrypt(key):
     # open file
     file1 = open('manager.bin', 'r')
     Lines = file1.readlines()
-
+    resultList = []
     for f in Lines:
         read_line = f.strip('\n')
         split_list = delimiter(read_line)
         result = decode(split_list, key)
-
+        
         if result:
             print("The message in the file was:", result)
+            resultList.append(result)
+            
         else:
             print("No data found in the file.")
+            return ["empty"]
+        
+    return resultList
 
 
 def delimiter(line):

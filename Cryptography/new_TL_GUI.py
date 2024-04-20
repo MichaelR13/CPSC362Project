@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-from encryption import encrypt
+from encryption import *
+from decryption import *
 
   
 #GLOBAL CSUF COLORS
@@ -160,12 +161,36 @@ class SavedPage(tk.Frame):
         label.grid(row = 0, column = 4, padx = 10, pady = 10)
         # button to show frame 2 with text
         # layout2
+        def remove_label():
+            for  label in dataLabelList:
+                label.destroy()
+
+        def backButtonReset(controller):
+            remove_label()
+            controller.show_frame(StartPage)
+
         backButton = ttk.Button(self, text ="Back",
-                            command = lambda : controller.show_frame(StartPage))
+                            command = lambda : backButtonReset(controller))
      
         # putting the button in its place 
         # by using grid
         backButton.grid(row = 1, column = 1, padx = 10, pady = 10)
+        dataLabelList = []
+        def showUserData():
+            
+            resultList = decrypt(masterKey)
+            for  row, item in enumerate(resultList):
+                line = ' '.join(map(str, item))
+                dataLabel = ttk.Label(self, text = line)
+                dataLabel.grid(row = (row + 5) , column=(4), pady = 10)
+                dataLabelList.append(dataLabel)
+        
+        showButton = ttk.Button(self, text ="Show user Data",
+                            command = lambda : showUserData())
+        showButton.grid(row = 4, column = 4)
+        
+
+
   
   
 # Driver Code
