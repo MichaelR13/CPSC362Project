@@ -3,8 +3,6 @@ from Crypto.Util.Padding import pad
 
 def encrypt(key,*info):
     key = key.encode('utf-8')
-    if key == b'':
-        key = b'Sixteen byte key' # key must be 16 bytes long
     print(info)
     returnMsg = encryptInfo(info, key)
     print (returnMsg)

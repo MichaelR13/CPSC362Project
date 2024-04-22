@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from encryption import *
 from decryption import *
+from fileCheck import *
+from lenCheck import *
 
   
 #GLOBAL CSUF COLORS
@@ -59,22 +61,34 @@ class tkinterApp(tk.Tk):
   
 class StartPage(tk.Frame):
     def saveSaveKey(keyEntry, controller):
-        global masterKey
-        masterKey = keyEntry
-
-        # MasterKey Check
-        #print (masterKey)
-
-        controller.show_frame(SavedPage)
+        if keyEntry == "":
+            keyEntry = "Sixteen byte key"
+        if lengthCheck (keyEntry):
+            if fileExist (keyEntry):
+                global masterKey
+                masterKey = keyEntry
+                controller.show_frame(SavedPage)
+            else:
+                # TODO: wrong key popup window
+                pass
+        else: 
+            # TODO: please enter a 16 byte key popup window
+            pass
 
     def saveAddKey(keyEntry, controller):
-        global masterKey
-        masterKey = keyEntry
-
-        # MasterKey Check
-        #print (masterKey)
-        
-        controller.show_frame(AddPage)
+        if keyEntry == "":
+            keyEntry = "Sixteen byte key"
+        if lengthCheck (keyEntry):
+            if fileExist (keyEntry):
+                global masterKey
+                masterKey = keyEntry
+                controller.show_frame(AddPage)
+            else:
+                # TODO: wrong key popup window
+                pass
+        else: 
+            # TODO: please enter a 16 byte key popup window
+            pass
 
     def __init__(self, parent, controller): 
         tk.Frame.__init__(self, parent)
