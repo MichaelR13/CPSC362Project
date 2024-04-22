@@ -128,6 +128,12 @@ class StartPage(tk.Frame):
 class AddPage(tk.Frame):
     def save_file(userText, userPW, link):
         encrypt(masterKey, userText, userPW, link)
+        if encrypt:
+            # TODO: Success popout window
+            pass
+        else:
+            # TODO: Failed to add to list popout window
+            pass
             
     
     def __init__(self, parent, controller):
