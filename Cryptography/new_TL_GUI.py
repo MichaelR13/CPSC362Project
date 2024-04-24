@@ -2,16 +2,15 @@ import tkinter as tk
 from tkinter import ttk
 from encryption import *
 from decryption import *
-from fileCheck import *
+from tkinter import messagebox 
 from lenCheck import *
-
   
 #GLOBAL CSUF COLORS
 t_blue = '#00244E'
 t_orange = '#FF7900'
 masterKey = ''
 class tkinterApp(tk.Tk):
-     
+
     # __init__ function for class tkinterApp 
     def __init__(self, *args, **kwargs): 
          
@@ -21,6 +20,7 @@ class tkinterApp(tk.Tk):
         self.geometry('400x400+500+500')
         self.minsize(500,420)
         self.resizable(True, True)
+        
         
         
        
@@ -56,43 +56,35 @@ class tkinterApp(tk.Tk):
     def show_frame(self, cont):
         frame = self.frames[cont]
         frame.tkraise()
+        if cont == StartPage:
+            frame.keyEntry.delete(0, tk.END)
+            
+        elif cont == AddPage:
+            frame.userEntry.delete(0, 'end')
+            frame.pwEntry.delete(0, 'end')
+            frame.linkEntry.delete(0, 'end')
   
 # first window frame startpage
   
 class StartPage(tk.Frame):
-    def saveSaveKey(keyEntry, controller):
-        if keyEntry == "":
-            keyEntry = "Sixteen byte key"
-        if lengthCheck (keyEntry):
-            if fileExist (keyEntry):
-                global masterKey
-                masterKey = keyEntry
-                controller.show_frame(SavedPage)
-            else:
-                # TODO: wrong key popup window
-                pass
-        else: 
-            # TODO: please enter a 16 byte key popup window
-            pass
+    def saveSaveKey(self, keyEntry, controller):
+        global masterKey
+        masterKey = keyEntry
+        messageBox.messageboxEnterkey(keyEntry, controller, SavedPage)
+        # self.keyEntry.delete(0, tk.END)
 
     def saveAddKey(keyEntry, controller):
-        if keyEntry == "":
-            keyEntry = "Sixteen byte key"
-        if lengthCheck (keyEntry):
-            if fileExist (keyEntry):
-                global masterKey
-                masterKey = keyEntry
-                controller.show_frame(AddPage)
-            else:
-                # TODO: wrong key popup window
-                pass
-        else: 
-            # TODO: please enter a 16 byte key popup window
-            pass
-
+        global masterKey
+        masterKey = keyEntry
+        messageBox.messageboxEnterkey(keyEntry, controller, AddPage)
+        # MasterKey Check
+        #print (masterKey)
+        # controller.show_frame(AddPage)
+        # keyEntry.delete(0, tk.END)
+      
+    
     def __init__(self, parent, controller): 
         tk.Frame.__init__(self, parent)
-        
         self.configure(bg = t_blue)
         # label of frame Layout 2
         label = ttk.Label(self, text='Titan Lock 🐘', font='Arial 36', foreground = t_orange, background = t_blue)
@@ -105,21 +97,24 @@ class StartPage(tk.Frame):
         #style.theme_use('alt')
         style.configure('TButton', foreground = 'black', width = 15)
         style.map('TButton', background=[('active', 'white')])
-        addButton = ttk.Button(self, text ="ADD", command = lambda : StartPage.saveAddKey(keyEntry.get(), controller))
+        addButton = ttk.Button(self, text ="ADD", command = lambda : StartPage.saveAddKey(self.keyEntry.get(), controller))
         
         # putting the button in its place by
         # using grid
         addButton.grid(row = 1, column = 4, padx = 10, pady = 10)
         ## button to show frame 2 with text layout2
-        savedButton = ttk.Button(self, text ="Saved", command = lambda : StartPage.saveSaveKey(keyEntry.get(), controller))
-     
+        savedButton = ttk.Button(self, text ="Saved", command = lambda : StartPage.saveSaveKey(self, self.keyEntry.get(), controller))
+
         # putting the button in its place by
         # using grid
+        
         savedButton.grid(row = 2, column = 4, padx = 10, pady = 10)
         key = tk.Label(self, text="Enter Key: ", bg= t_blue, fg='white')
         key.grid(row = 3, column = 4)
-        keyEntry = tk.Entry(self, width ='25')
-        keyEntry.grid(row = 4, column = 4)
+        self.keyEntry = tk.Entry(self, width ='25')
+        self.keyEntry.grid(row = 4, column = 4)
+        #keyEntry.delete(0, tk.END)
+        #keyEntry.delete(len(keyEntry))
 
         
   
@@ -127,17 +122,13 @@ class StartPage(tk.Frame):
 # second window frame ADD BUTTON AND ENTRY PAGE
 class AddPage(tk.Frame):
     def save_file(userText, userPW, link):
-        encrypt(masterKey, userText, userPW, link)
-        if encrypt:
-            # TODO: Success popout window
-            pass
-        else:
-            # TODO: Failed to add to list popout window
-            pass
+        messageBox.messageboxSaved(userText, userPW, link)
+
             
     
     def __init__(self, parent, controller):
-
+       
+        
         tk.Frame.__init__(self, parent)
         self.configure(bg = t_blue)
         label = ttk.Label(self, text='Titan Lock 🐘', font='Arial 36', foreground = t_orange, background = t_blue)
@@ -152,19 +143,20 @@ class AddPage(tk.Frame):
         
         # Set the position of USER,PW, LINK AND THEIR RESPECTIVE ENTRIES
         user = tk.Label(self, text="User: ", bg= t_blue, fg='white')
-        userEntry = tk.Entry(self, width ='25')
+        self.userEntry = tk.Entry(self, width ='25')
         pw = tk.Label(self, text="Password: ", bg= t_blue, fg='white')
-        pwEntry = tk.Entry(self, width ='25', show = '*')
+        self.pwEntry = tk.Entry(self, width ='25', show = '*')
         link = tk.Label(self, text="Link: ", bg= t_blue, fg='white')
-        linkEntry = tk.Entry(self, width ='25')
+        self.linkEntry = tk.Entry(self, width ='25')
+        
         #TODO: add command to submit button
-        submitButton = ttk.Button(self, text = 'SUBMIT', command = lambda: AddPage.save_file(userEntry.get(), pwEntry.get(),linkEntry.get()))
+        submitButton = ttk.Button(self, text = 'SUBMIT', command = lambda: AddPage.save_file(self.userEntry.get(), self.pwEntry.get(),self.linkEntry.get()))
         user.grid(row = 2, column = 4)
-        userEntry.grid(row = 3, column = 4)
+        self.userEntry.grid(row = 3, column = 4)
         pw.grid(row = 4, column = 4)
-        pwEntry.grid(row = 5, column = 4)
+        self.pwEntry.grid(row = 5, column = 4)
         link.grid(row = 6, column = 4)
-        linkEntry.grid(row = 7, column = 4)
+        self.linkEntry.grid(row = 7, column = 4)
         
         submitButton.grid(row= 8, column = 4, pady = 30)
         
@@ -209,6 +201,23 @@ class SavedPage(tk.Frame):
                             command = lambda : showUserData())
         showButton.grid(row = 4, column = 4)
         
+#class for messageboxes
+class messageBox():
+    def messageboxSaved(userText, userPW, link):
+        if not all((userText, userPW, link)):
+            messagebox.showerror("Error", "Please fill in all fields")
+            return
+        encrypt(masterKey, userText, userPW, link)
+        messagebox.showinfo("Submission", "Information has been submitted!")
+        
+    def messageboxEnterkey(keyEntry, controller, page):
+        if not (keyEntry):
+            messagebox.showerror("Error", "Please fill in all fields.")
+        elif len(keyEntry) < 16 or len(keyEntry) > 16:
+            messagebox.showerror("Error", "The key must be 16 characters.")
+        else:  
+            controller.show_frame(page)
+
 
 
   
