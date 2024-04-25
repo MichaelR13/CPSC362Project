@@ -15,7 +15,7 @@ def encryptInfo(infoList, key):
 
     errorCheck = makeStr(infoList, key)
 
-    if errorCheck[0] == "Data successfully written to file":
+    if errorCheck[0] == True:
         file1.write(errorCheck[1])
     
     file1.write('\n')
@@ -45,9 +45,9 @@ def makeStr(infoList, key):
             tempStr = tempStr + '|' + str(cipherText)
 
     except Exception as e:
-        return ["Data failed to write to file",tempStr]
+        return [False,tempStr]
 
-    return ["Data successfully written to file", tempStr]
+    return [True, tempStr]
 
 if __name__ == '__main__':
     username = str(input("Please enter your username: "))
