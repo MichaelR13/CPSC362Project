@@ -215,7 +215,7 @@ class messageBox():
             messagebox.showerror("Error", "Please fill in all fields.")
         elif len(keyEntry) < 16 or len(keyEntry) > 16:
             messagebox.showerror("Error", "The key must be 16 characters.")
-        elif not fileExist(keyEntry) :
+        elif fileExist(keyEntry) != True:
             messagebox.showerror("Error", "Incorrect key.")
         else:
             controller.show_frame(page)
