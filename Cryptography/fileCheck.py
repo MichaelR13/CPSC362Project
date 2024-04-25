@@ -13,7 +13,7 @@ def fileExist(key):
             first_line = f.readline().strip('\n')
             split_list = delimiter(first_line)
             result = decode(split_list, key)
-    if result:
+    if result != ["empty"]:
         return True
     else:
         return False
