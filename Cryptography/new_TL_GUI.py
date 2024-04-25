@@ -2,8 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from encryption import *
 from decryption import *
+from fileCheck import fileExist
 from tkinter import messagebox 
-from lenCheck import *
   
 #GLOBAL CSUF COLORS
 t_blue = '#00244E'
@@ -215,7 +215,9 @@ class messageBox():
             messagebox.showerror("Error", "Please fill in all fields.")
         elif len(keyEntry) < 16 or len(keyEntry) > 16:
             messagebox.showerror("Error", "The key must be 16 characters.")
-        else:  
+        elif fileExist(keyEntry):
+            messagebox.showerror("Error", "Incorrect key.")
+        else:
             controller.show_frame(page)
 
 
