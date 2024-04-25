@@ -13,9 +13,9 @@ def fileExist(key):
             first_line = f.readline().strip('\n')
             split_list = delimiter(first_line)
             result = decode(split_list, key)
-        if result != ["empty"]:
-            return True
-    return False
+        if result == ["empty"]:
+            return False
+    return True
 
 
 if __name__ == '__main__':
