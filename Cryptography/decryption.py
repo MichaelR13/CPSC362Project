@@ -53,6 +53,7 @@ def decode(lst, key):
 
         except Exception as e:
             print("Error decrypting data:", e)
+            return False
 
     return final_list
 
