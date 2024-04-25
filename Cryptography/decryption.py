@@ -14,11 +14,6 @@ def decrypt(key):
         if result:
             print("The message in the file was:", result)
             resultList.append(result)
-            
-        else:
-            print("No data found in the file.")
-            return ["empty"]
-        
     return resultList
 
 
