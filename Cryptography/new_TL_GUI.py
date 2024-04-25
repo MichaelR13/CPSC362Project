@@ -97,13 +97,13 @@ class StartPage(tk.Frame):
         #style.theme_use('alt')
         style.configure('TButton', foreground = 'black', width = 15)
         style.map('TButton', background=[('active', 'white')])
-        addButton = ttk.Button(self, text ="ADD", command = lambda : StartPage.saveAddKey(self.keyEntry.get(), controller))
+        addButton = ttk.Button(self, text ="Add", command = lambda : StartPage.saveAddKey(self.keyEntry.get(), controller))
         
         # putting the button in its place by
         # using grid
         addButton.grid(row = 1, column = 4, padx = 10, pady = 10)
         ## button to show frame 2 with text layout2
-        savedButton = ttk.Button(self, text ="Saved", command = lambda : StartPage.saveSaveKey(self, self.keyEntry.get(), controller))
+        savedButton = ttk.Button(self, text ="Show", command = lambda : StartPage.saveSaveKey(self, self.keyEntry.get(), controller))
 
         # putting the button in its place by
         # using grid
