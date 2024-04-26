@@ -3,7 +3,10 @@ from tkinter import ttk
 from tkinter import messagebox
 from encryption import *
 from decryption import *
-from fileCheck import fileExist
+#from fileCheck import fileExist
+from tkinter import Listbox
+from tkinter import END
+from tkinter import ANCHOR
   
 #GLOBAL CSUF COLORS
 t_blue = '#00244E'
@@ -157,10 +160,8 @@ class SavedPage(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.configure(bg = t_blue)
         label = ttk.Label(self, text='Titan Lock 🐘', font='Arial 36', foreground = t_orange, background = t_blue)
-        
         label.grid(row = 0, column = 4, padx = 10, pady = 10)
-        # button to show frame 2 with text
-        # layout2
+
         def remove_label():
             for  label in dataLabelList:
                 label.destroy()
@@ -171,13 +172,9 @@ class SavedPage(tk.Frame):
 
         backButton = ttk.Button(self, text ="Back",
                             command = lambda : backButtonReset(controller))
-     
-        # putting the button in its place 
-        # by using grid
         backButton.grid(row = 0, column = 1, padx = 10, pady = 0)
         dataLabelList = []
         def showUserData():
-            
             resultList = decrypt(masterKey)
             for  row, item in enumerate(resultList):
                 line = ' '.join(map(str, item))
@@ -185,9 +182,34 @@ class SavedPage(tk.Frame):
                 dataLabel.grid(row = (row + 5) , column=(4), pady = 10)
                 dataLabelList.append(dataLabel)
         
-        showButton = ttk.Button(self, text ="Show user Data",
-                            command = lambda : showUserData())
-        showButton.grid(row = 4, column = 4)
+        def showData():
+            my_listbox = Listbox(self)
+            my_listbox.configure(background=t_blue, fg = 'white', height= '5', width= '50')
+            my_listbox.grid(row = 1, column= 4)
+
+            resultList2 = decrypt(masterKey)
+            for item in (resultList2):
+                #line = ''.join(map(str, item))
+                linkOnly = item[2]
+                my_listbox.insert(END, linkOnly)
+            def on_select(event):
+                # Get the index of the selected item
+                index = my_listbox.curselection()[0]
+                # Get the selected tuple
+                selected_tuple = resultList2[index]
+                # Print the contents of the selected tuple
+                print(selected_tuple)
+                
+            my_listbox.bind("<<ListboxSelect>>", on_select)
+            
+
+
+        showButton2 = ttk.Button(self, text ="Show user Data",
+                            command = lambda : showData())
+        showButton2.grid(row = 4, column = 4)
+        #showButton = ttk.Button(self, text ="Show user Data",
+        #                    command = lambda : showUserData())
+        #showButton.grid(row = 4, column = 4)
         
 #class for messageboxes
 class messageBox():
@@ -203,8 +225,7 @@ class messageBox():
             messagebox.showerror("Error", "Please fill in all fields.")
         elif len(keyEntry) < 16 or len(keyEntry) > 16:
             messagebox.showerror("Error", "The key must be 16 characters.")
-        elif not fileExist(keyEntry):
-            messagebox.showerror("Error", "Incorrect key.")
+        
         else:
             controller.show_frame(page)
 
