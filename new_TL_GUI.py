@@ -154,50 +154,22 @@ class AddPage(tk.Frame):
         submitButton.grid(row= 8, column = 4, pady = 30)
         
 # third window frame SAVED DATA PAGE
-class SavedPage(tk.Frame): 
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        self.configure(bg = t_blue)
-        label = ttk.Label(self, text='Titan Lock 🐘', font='Arial 36', foreground = t_orange, background = t_blue)
-        label.grid(row = 0, column = 4, padx = 10, pady = 10)
-
-        
-
-        def backButtonReset(controller):
-            #remove_label()
-            controller.show_frame(StartPage)
-
-        backButton = ttk.Button(self, text ="Back",
-                            command = lambda : backButtonReset(controller))
-        backButton.grid(row = 0, column = 1, padx = 10, pady = 0)
-        '''
-        def remove_label():
-            for  label in dataLabelList:
-                label.destroy()
-        dataLabelList = []
-        def showUserData():
-            resultList = decrypt(masterKey)
-            for  row, item in enumerate(resultList):
-                line = ' '.join(map(str, item))
-                dataLabel = ttk.Label(self, text = line)
-                dataLabel.grid(row = (row + 5) , column=(4), pady = 10)
-                dataLabelList.append(dataLabel)
-
-        '''
-        def showData():
-            
+class SavedPage(tk.Frame):
+    
+    def showData(self):        
             my_listbox = Listbox(self)
             my_listbox.configure(background=t_blue, fg = 'white', height= '10', width= '25')
             my_listbox.grid(row = 5, column= 4)
             #scroll
             
-
             resultList2 = decrypt(masterKey)
+            
             #FOR SOME REASON< I GET A REPRODUCABLE ERROR WHEN TYPING "pintrest.com" AS THE LINK
             #ERROR GIVEN : "Error decrypting data: unterminated string literal (detected at line 1) (<string>, line 1)"
             '''for item in (resultList2):
                 if resultList2 == False:
                     messageBox.showError("Error", "Error Please try again")'''
+            
             for item in (resultList2):
                 #line = ''.join(map(str, item))
                 linkOnly = item[2]
@@ -212,15 +184,27 @@ class SavedPage(tk.Frame):
                 messagebox.showinfo("Info",selected_tuple)
                 
             my_listbox.bind('<Double-Button-1>', on_select)
-            
-            #"<<ListboxSelect>>"
 
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.configure(bg = t_blue)
+        label = ttk.Label(self, text='Titan Lock 🐘', font='Arial 36', foreground = t_orange, background = t_blue)
+        label.grid(row = 0, column = 4, padx = 10, pady = 10)
+
+        def backButtonReset(controller):
+            #remove_label()
+            controller.show_frame(StartPage)
+
+        backButton = ttk.Button(self, text ="Back",
+                            command = lambda : backButtonReset(controller))
+        backButton.grid(row = 0, column = 1, padx = 10, pady = 0)
+        
         showButton2 = ttk.Button(self, text ="Show user Data",
-                            command = lambda : showData())
+                            command = lambda : SavedPage.showData(self))
         showButton2.grid(row = 4, column = 4)
-        #showButton = ttk.Button(self, text ="Show user Data",
-        #                    command = lambda : showUserData())
-        #showButton.grid(row = 4, column = 4)
+        
+        
+        
         
 #class for messageboxes
 class messageBox():
