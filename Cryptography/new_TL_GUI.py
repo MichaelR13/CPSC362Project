@@ -7,7 +7,7 @@ from decryption import *
 from tkinter import Listbox
 from tkinter import END
 from tkinter import ANCHOR
-  
+
 #GLOBAL CSUF COLORS
 t_blue = '#00244E'
 t_orange = '#FF7900'
@@ -186,11 +186,19 @@ class SavedPage(tk.Frame):
 
         '''
         def showData():
+            
             my_listbox = Listbox(self)
             my_listbox.configure(background=t_blue, fg = 'white', height= '10', width= '25')
             my_listbox.grid(row = 5, column= 4)
+            #scroll
+            
 
             resultList2 = decrypt(masterKey)
+            #FOR SOME REASON< I GET A REPRODUCABLE ERROR WHEN TYPING "pintrest.com" AS THE LINK
+            #ERROR GIVEN : "Error decrypting data: unterminated string literal (detected at line 1) (<string>, line 1)"
+            '''for item in (resultList2):
+                if resultList2 == False:
+                    messageBox.showError("Error", "Error Please try again")'''
             for item in (resultList2):
                 #line = ''.join(map(str, item))
                 linkOnly = item[2]
@@ -202,6 +210,7 @@ class SavedPage(tk.Frame):
                 selected_tuple = resultList2[index]
                 # Print the contents of the selected tuple
                 print(selected_tuple)
+                messagebox.showinfo("Info",selected_tuple)
                 
             my_listbox.bind('<Double-Button-1>', on_select)
             
