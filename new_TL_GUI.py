@@ -3,7 +3,6 @@ from tkinter import ttk
 from tkinter import messagebox
 from encryption import *
 from decryption import *
-#from fileCheck import fileExist
 from tkinter import Listbox
 from tkinter import END
 from tkinter import ANCHOR
