@@ -199,11 +199,9 @@ class SavedPage(tk.Frame):
                             command = lambda : backButtonReset(controller))
         backButton.grid(row = 0, column = 1, padx = 10, pady = 0)
         
-        showButton2 = ttk.Button(self, text ="Show user Data",
+        showButton2 = ttk.Button(self, text ="Show/Refresh",
                             command = lambda : SavedPage.showData(self))
         showButton2.grid(row = 4, column = 4)
-        
-        
         
         
 #class for messageboxes
