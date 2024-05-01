@@ -6,7 +6,6 @@ from decryption import *
 from tkinter import Listbox
 from tkinter import END
 from tkinter import ANCHOR
-import pyperclip
 
 #GLOBAL CSUF COLORS
 t_blue = '#00244E'
@@ -175,19 +174,14 @@ class SavedPage(tk.Frame):
                 #line = ''.join(map(str, item))
                 linkOnly = item[2]
                 my_listbox.insert(END, linkOnly)
-                
             def on_select(event):
                 # Get the index of the selected item
                 index = my_listbox.curselection()[0]
                 # Get the selected tuple
                 selected_tuple = resultList2[index]
-                # Convert the selected tuple to a string
-                selected_string = '\n'.join(map(str, selected_tuple))
-                # Copy the contents of the selected tuple to clipboard
-                pyperclip.copy(selected_string)
                 # Print the contents of the selected tuple
-                # print(selected_tuple)
-                messagebox.showinfo("Info", "Selected item copied to clipboard: \n" + selected_string)
+                print(selected_tuple)
+                messagebox.showinfo("Info",selected_tuple)
                 
             my_listbox.bind('<Double-Button-1>', on_select)
 
